@@ -18,5 +18,3 @@ Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->na
 Route::get('/catalog', [App\Http\Controllers\CatalogController::class, 'index'])->name('catalog');
 Route::get('/find', [App\Http\Controllers\FindController::class, 'index'])->name('find');
 Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
-
-Auth::routes();
