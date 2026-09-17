@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex flex-column align-items-center mb-4 text-center">
+    <div class="d-flex flex-column align-items-center mb-5 text-center">
         <img src="{{ asset('img/icons-scanner-100.png') }}" style="width: 50px">
         <h2>Наш девиз</h2>
         <p>Продавать только качественные продукты</p>

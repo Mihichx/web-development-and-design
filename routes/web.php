@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('main');
-Route::get('/about', [App\Http\Controllers\AboutController::class, 'index'])->name('about');
+Route::get('/', [App\Http\Controllers\AboutController::class, 'index'])->name('about');
 Route::get('/catalog', [App\Http\Controllers\CatalogController::class, 'index'])->name('catalog');
 Route::get('/find', [App\Http\Controllers\FindController::class, 'index'])->name('find');
 Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
 
 Auth::routes();

@@ -6,21 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
-
     <!-- Styles -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Copy Star
-                </a>
+                <a class="navbar-brand"> Copy Star</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -31,13 +28,20 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link {{ (Route::is('about')) ? 'active' : '' }}" href="{{ route('about') }}">О нас</a>
+                            <a class="nav-link {{ Route::is('about') ? 'active' : '' }}" href="{{ route('about') }}">О
+                                нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (Route::is('catalog')) ? 'active' : '' }}" href="{{ route('catalog') }}">Каталог</a>
+                            <a class="nav-link {{ Route::is('catalog') ? 'active' : '' }}"
+                                href="{{ route('catalog') }}">Каталог</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ (Route::is('find')) ? 'active' : '' }}" href="{{ route('find') }}">Где мы</a>
+                            <a class="nav-link {{ Route::is('find') ? 'active' : '' }}" href="{{ route('find') }}">Где
+                                мы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is('cart') ? 'active' : '' }}"
+                                href="{{ route('cart') }}">Корзина</a>
                         </li>
                     </ul>
 
