@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-class AboutController extends Controller
+class AdminController extends Controller
 {
     public function index()
     {
-        return view('about');
+        return view('admin');
     }
 }

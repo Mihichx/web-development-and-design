@@ -1,0 +1,14 @@
+a {
+    text-decoration: none !important;
+}
+
+.hover:hover {
+    opacity: 0.7;
+}
+
+.custom-caption {
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+
+}
