@@ -6,6 +6,7 @@
         <h2>Наш девиз</h2>
         <p>Продавать только качественные продукты</p>
     </div>
+
     <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -66,7 +67,6 @@
                     <h5>Сканер 4</h5>
                 </div>
             </div>
-
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1);"></span>

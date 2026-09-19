@@ -17,17 +17,17 @@
                 <div class="card h-100">
                     <div class="card-body d-flex flex-row">
                         <h5 class="card-title me-2 mb-0">Итого:</h5>
-                        <p class="card-text">200 руб.</p>
+                        <p class="card-text">500 руб.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-4">
-                <form>
+                <form method=""> {{-- POST --}}
                     <button class="btn btn-danger w-100">Очистить</button>
                 </form>
             </div>
             <div class="col-md-3 mb-4">
-                <form>
+                <form method=""> {{-- POST --}}
                     <button class="btn btn-success w-100">Оформить</button>
                 </form>
             </div>
@@ -46,8 +46,8 @@
                         <h5 class="card-title">Сканер 1</h5> {{-- name --}}
                         <p class="card-text">Очень крутой и качественный сканер для печати денег</p>
                         {{--  description --}}
-                        <p class="card-text">Цена: 100 руб.</p> {{-- price --}}
-                        <p class="card-text">Кол-во: 1</p>
+                        <p class="card-text">Цена: 200 руб.</p> {{-- price --}}
+                        <p class="card-text">Кол-во: 2</p>
                         <div class="d-flex flex-row m-auto">
                             <button class="btn btn-secondary me-1">+</button><button
                                 class="btn btn-secondary ms-1">-</button>

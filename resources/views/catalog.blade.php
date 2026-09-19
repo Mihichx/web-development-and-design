@@ -6,33 +6,39 @@
 
         <div class="row">
             <div class="col-md-12 mb-4">
-                <form class="d-flex" role="search">
+                <form method="" class="d-flex" role="search"> {{-- POST --}}
                     <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" />
                     <button class="btn btn-outline-success" type="submit">Найти</button>
                 </form>
             </div>
             <div class="col-md-4 mb-4">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Сортировать по цене</option>
-                    <option value="1">По возрастанию </option>
-                    <option value="2">По убыванию</option>
-                </select>
+                <form method="GET">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Сортировать по цене</option>
+                        <option value="1">По возрастанию </option>
+                        <option value="2">По убыванию</option>
+                    </select>
+                </form>
             </div>
             <div class="col-md-4 mb-4">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Сортировать по году</option>
-                    <option value="1">По возрастанию</option>
-                    <option value="2">По убыванию</option>
-                </select>
+                <form method="GET">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Сортировать по году</option>
+                        <option value="1">По возрастанию</option>
+                        <option value="2">По убыванию</option>
+                    </select>
+                </form>
             </div>
             <div class="col-md-4 mb-4">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Категории</option>
-                    <option value="1">Лазерные</option>
-                    <option value="2">Принтеры</option>
-                    <option value="3">Струйные принтеры</option>
-                    <option value="4">Термопринтеры</option>
-                </select>
+                <form method="GET">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Категории</option>
+                        <option value="1">Лазерные</option>
+                        <option value="2">Принтеры</option>
+                        <option value="3">Струйные принтеры</option>
+                        <option value="4">Термопринтеры</option>
+                    </select>
+                </form>
             </div>
         </div>
         <div class="row g-5">

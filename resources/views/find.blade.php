@@ -5,6 +5,14 @@
         <h1 class="mb-4">Где мы</h1>
 
         <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card d-flex justify-content-center align-items-center" style="height: 600px;">
+                    <h2>Карта</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-4">
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
