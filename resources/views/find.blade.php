@@ -6,9 +6,9 @@
 
         <div class="row">
             <div class="col-md-12 mb-4">
-                <div class="card d-flex justify-content-center align-items-center" style="height: 600px;">
-                    <h2>Карта</h2>
-                </div>
+                <script type="text/javascript" charset="utf-8" async
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A13e8ba184fee97199dc0444142b77bfedf82e5e6612be16e6750b9f22e893d53&amp;width=100%25&amp;height=600&amp;lang=ru_RU&amp;scroll=true">
+                </script>
             </div>
         </div>
 
