@@ -33,87 +33,36 @@
                 <form method="GET">
                     <select class="form-select" aria-label="Default select example">
                         <option selected>Категории</option>
-                        <option value="1">Лазерные</option>
-                        <option value="2">Принтеры</option>
-                        <option value="3">Струйные принтеры</option>
-                        <option value="4">Термопринтеры</option>
+                        @foreach ($categories as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
                     </select>
                 </form>
             </div>
         </div>
         <div class="row g-5">
-            <div class="col-md-3">
-                <a href="#" class="hover text-dark">
-                    <div class="card h-100">
-                        <picture>
-                            <source srcset="{{ asset('img/scan1.avif') }}" type="image/avif">
-                            <source srcset="{{ asset('img/scan1.webp') }}" type="image/webp">
-                            <source srcset="{{ asset('img/scan1.png') }}" type="image/png">
-                            <img src="{{ asset('img/scan1.jpg') }}" class="card-img-top object-fit-contain p-3"
-                                style="height: 220px;" alt="Сканер 1"> {{-- img --}}
-                        </picture>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Сканер 1</h5> {{-- name --}}
-                            <p class="card-text">Очень крутой и качественный сканер для печати денег</p>
-                            {{--  description --}}
-                            <p class="card-text">Цена: 100 руб.</p> {{-- price --}}
+            @foreach ($products as $item)
+                <div class="col-md-3">
+                    <a href="{{ route('product', $item->id) }}" class="hover text-dark">
+                        <div class="card h-100">
+                            <picture>
+                                <source srcset="{{ asset('img/' . $item->img . '.avif') }}" type="image/avif">
+                                <source srcset="{{ asset('img/' . $item->img . '.webp') }}" type="image/webp">
+                                <source srcset="{{ asset('img/' . $item->img . '.png') }}" type="image/png">
+                                <img src="{{ asset('img/' . $item->img . '.jpg') }}" class="card-img-top object-fit-contain p-3"
+                                    style="height: 220px;" alt="{{ $item->name }}">
+                            </picture>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ $item->name }}</h5>
+                                <p class="card-text">{{ $item->small_description }}</p>
+                                <p class="card-text">Цена: {{ $item->price }} руб.</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a href="#" class="hover text-dark">
-                    <div class="card h-100">
-                        <picture>
-                            <source srcset="{{ asset('img/scan2.avif') }}" type="image/avif">
-                            <source srcset="{{ asset('img/scan2.webp') }}" type="image/webp">
-                            <source srcset="{{ asset('img/scan2.png') }}" type="image/png">
-                            <img src="{{ asset('img/scan2.jpg') }}" class="card-img-top object-fit-contain p-3"
-                                style="height: 220px;" alt="Сканер 2">
-                        </picture>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Сканер 2</h5>
-                            <p class="card-text">Очень крутой и качественный сканер для печати денег</p>
-                            <p class="card-text">Цена: 100 руб.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a href="#" class="hover text-dark">
-                    <div class="card h-100">
-                        <picture>
-                            <source srcset="{{ asset('img/scan3.avif') }}" type="image/avif">
-                            <source srcset="{{ asset('img/scan3.webp') }}" type="image/webp">
-                            <source srcset="{{ asset('img/scan3.png') }}" type="image/png">
-                            <img src="{{ asset('img/scan3.jpg') }}" class="card-img-top object-fit-contain p-3"
-                                style="height: 220px;" alt="Сканер 3">
-                        </picture>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Сканер 3</h5>
-                            <p class="card-text">Очень крутой и качественный сканер для печати денег</p>
-                            <p class="card-text">Цена: 100 руб.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a href="#" class="hover text-dark">
-                    <div class="card h-100">
-                        <picture>
-                            <source srcset="{{ asset('img/scan4.avif') }}" type="image/avif">
-                            <source srcset="{{ asset('img/scan4.webp') }}" type="image/webp">
-                            <source srcset="{{ asset('img/scan4.png') }}" type="image/png">
-                            <img src="{{ asset('img/scan4.jpg') }}" class="card-img-top object-fit-contain p-3"
-                                style="height: 220px;" alt="Сканер 4">
-                        </picture>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">Сканер 4</h5>
-                            <p class="card-text">Очень крутой и качественный сканер для печати денег</p>
-                            <p class="card-text">Цена: 100 руб.</p>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+            @endforeach
+            <div class="d-flex justify-content-center">
+                {{ $products->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>

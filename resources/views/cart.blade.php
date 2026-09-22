@@ -27,7 +27,9 @@
                 </form>
             </div>
             <div class="col-md-3 mb-4">
-                <form method=""> {{-- POST --}}
+                <form method="POST">
+                    @csrf
+                    <input type="hidden" name="order" value="1">
                     <button class="btn btn-success w-100">Оформить</button>
                 </form>
             </div>

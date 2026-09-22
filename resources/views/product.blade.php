@@ -1,23 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="m-5">Продукт</h1>
-    
-    <div class="d-flex" style="justify-content: center">
-        <div class="card" style="width: 400px;">
-            <picture>
-                <source srcset="{{ asset('img/scan1.avif') }}" type="image/avif">
-                <source srcset="{{ asset('img/scan1.webp') }}" type="image/webp">
-                <source srcset="{{ asset('img/scan1.png') }}" type="image/png">
-                <img src="{{ asset('img/scan1.jpg') }}" class="card-img-top object-fit-cover" alt="Сканер 1">
-            </picture>
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Сканер 4</h5> {{-- name --}}
-                <p class="card-text">Очень крутой и качественный сканер для печати денег</p> {{-- description --}}
-                <p class="card-text">Год выпуска: 2026-09-16</p> {{-- year_release --}}
-                <p class="card-text">Модель: MSP</p> {{-- model --}}
-                <p class="card-text">Цена: 100 руб.</p> {{-- price --}}
-                <a href="#" class="btn btn-success mt-auto">Добавить</a>
+    <div class="container my-5">
+        <h1 class="m-5">Продукт</h1>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <picture>
+                        <source srcset="{{ asset('img/' . $item->img . '.avif') }}" type="image/avif">
+                        <source srcset="{{ asset('img/' . $item->img . '.webp') }}" type="image/webp">
+                        <source srcset="{{ asset('img/' . $item->img . '.png') }}" type="image/png">
+                        <img src="{{ asset('img/' . $item->img . '.jpg') }}" class="card-img-top object-fit-contain p-3"
+                            style="height: 220px;" alt="{{ $item->name }}">
+                    </picture>
+                    <div class="card-body d-flex flex-column text-center">
+                        <h5 class="card-title">{{ $item->name }}</h5>
+                        <p class="card-text">{{ $item->description }}</p>
+                        <p class="card-text">Цена: {{ $item->price }} руб.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
