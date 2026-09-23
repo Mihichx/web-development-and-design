@@ -18,9 +18,12 @@ Route::get('/', [App\Http\Controllers\AboutController::class, 'index'])->name('a
 Route::get('/products', [App\Http\Controllers\CatalogController::class, 'index'])->name('products');
 Route::get('/product/{id}', [App\Http\Controllers\CatalogController::class, 'indexId'])->name('product');
 Route::get('/find', [App\Http\Controllers\FindController::class, 'index'])->name('find');
-Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
-Route::post('/cart', [App\Http\Controllers\CartController::class, 'store'])->name('cartPost');
-Route::get('/admin_login', [App\Http\Controllers\AdminController::class, 'indexLogin'])->name('admin_login'); // TODO: Сначала авторизация потом перенаправление на заказы админки
-Route::get('/admin_order', [App\Http\Controllers\AdminController::class, 'indexOrder'])->name('admin_order');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/order', [App\Http\Controllers\AdminController::class, 'indexOrder'])->name('admin_order');
+
+    Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
+    Route::post('/cart', [App\Http\Controllers\CartController::class, 'store'])->name('cart_post');
+});
 
 Auth::routes();
