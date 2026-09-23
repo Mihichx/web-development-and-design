@@ -20,6 +20,7 @@ Route::get('/product/{id}', [App\Http\Controllers\CatalogController::class, 'ind
 Route::get('/find', [App\Http\Controllers\FindController::class, 'index'])->name('find');
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
 Route::post('/cart', [App\Http\Controllers\CartController::class, 'store'])->name('cartPost');
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+Route::get('/admin_login', [App\Http\Controllers\AdminController::class, 'indexLogin'])->name('admin_login'); // TODO: Сначала авторизация потом перенаправление на заказы админки
+Route::get('/admin_order', [App\Http\Controllers\AdminController::class, 'indexOrder'])->name('admin_order');
 
 Auth::routes();

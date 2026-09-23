@@ -40,7 +40,7 @@
                 </form>
             </div>
         </div>
-        <div class="row g-5">
+        <div class="row g-5 d-flex justify-content-center">
             @foreach ($products as $item)
                 <div class="col-md-3">
                     <a href="{{ route('product', $item->id) }}" class="hover text-dark">
