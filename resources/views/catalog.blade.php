@@ -40,6 +40,7 @@
                 </form>
             </div>
         </div>
+        
         <div class="row g-5 d-flex justify-content-center">
             @foreach ($products as $item)
                 <div class="col-md-3">

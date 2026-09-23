@@ -13,7 +13,7 @@ class Product extends Model
 
    public $timestamps = false;
 
-   protected $fillable = [
+   protected $fillable = [ // TODO: Добавить новые столбики
         'id',
         'img',
         'name',

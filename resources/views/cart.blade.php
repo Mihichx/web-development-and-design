@@ -34,7 +34,15 @@
                 </form>
             </div>
         </div>
+        
         <div class="row g-5">
+            {{-- @if (!empty($products))
+                @foreach ($products as $item)
+
+                @endforeach
+            @else
+                <h1>Пусто</h1>
+            @endif --}}
             <div class="col-md-3">
                 <div class="card h-100">
                     <picture>

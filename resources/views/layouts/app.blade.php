@@ -39,16 +39,12 @@
                             <a class="nav-link {{ Route::is('find') ? 'active' : '' }}" href="{{ route('find') }}">Где
                                 мы</a>
                         </li>
-                        {{-- @auth
+                        @auth
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::is('cart') ? 'active' : '' }}"
                                     href="{{ route('cart') }}">Корзина</a>
                             </li>
-                        @endauth --}}
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::is('cart') ? 'active' : '' }}"
-                                href="{{ route('cart') }}">Корзина</a>
-                        </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
