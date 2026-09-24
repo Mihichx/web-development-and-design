@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <!-- TODO: Добавить иконку компании -->
+
+    <!-- ICON -->
+    <link rel="icon" type="image/png" href="{{ asset('img/icons-scanner-100.png') }}">
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
