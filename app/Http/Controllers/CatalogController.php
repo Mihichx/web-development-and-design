@@ -11,6 +11,7 @@ class CatalogController extends Controller
     {
         $categories = Category::all();
 
+        // FIXME: Выбирать сначала новые и сделать проверку на наличие
         $products = Product::select('id', 'name', 'small_description', 'price', 'img')->paginate(2);
         return view('catalog', compact('products', 'categories'));
     }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -22,10 +23,7 @@ class AdminController extends Controller
     {
         $request = $request->all();
 
-        if ($request['status'] == 0) {
-            echo $request['cause'];
-        }
-        echo $request['status'];
+        print_r($request);
         exit;
 
         return redirect()->route('admin.orders.index');

@@ -41,15 +41,16 @@
                     <td>23{{-- кол-во товаров (по $item->value - json) --}}</td>
                     <td>2026-09-16{{-- $item->order_date --}}</td>
                     <td class="d-flex flex-row">
-                        <form method="POST" action="{{ route('admin.orders.update', 1 {{-- $item->id --}}) }}">
+                        <form method="POST" action="{{ route('admin.orders.update') }}">
                             @csrf
                             @method('PUT')
 
+                            <input type="hidden" name="id" value="1{{-- $item->id --}}">
                             <input type="hidden" name="status" value="1">
                             <button class="btn btn-success me-1">Подтвердить</button>
                         </form>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Отменить</button>
+                        <button type="button" class="btn btn-danger open-modal-btn" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" data-id="1{{-- $item->id --}}">Отменить</button>
                     </td>
                 </tr>
             </tbody>
@@ -63,11 +64,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ route('admin.orders.update', 1 {{-- $item->id --}}) }}" id="accept">
+                        <form method="POST" action="{{ route('admin.orders.update') }}" id="accept">
                             @csrf
                             @method('PUT')
 
                             <div class="mb-3">
+                                <input type="hidden" name="id" id="modal-product-id" value="0">
                                 <input type="hidden" name="status" value="0">
                                 <label for="message-text" class="col-form-label">Сообщение:</label>
                                 <textarea name="cause" class="form-control" id="message-text" required></textarea>

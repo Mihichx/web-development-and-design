@@ -31,7 +31,7 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');
 
         Route::get('/orders', [AdminController::class, 'ordersIndex'])->name('orders.index');
-        Route::put('/orders/{order}', [AdminController::class, 'ordersUpdate'])->name('orders.update');
+        Route::put('/orders', [AdminController::class, 'ordersUpdate'])->name('orders.update');
 
         Route::get('/products', [AdminController::class, 'productsIndex'])->name('products.index');
         Route::post('/products', [AdminController::class, 'productsStore'])->name('products.store');

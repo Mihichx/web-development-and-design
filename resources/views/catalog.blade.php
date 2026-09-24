@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-4 mb-4">
                 <form method="GET">
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example"> <!-- TODO: Добавить name="sort_price" onchange="this.form.submit()" -->
                         <option selected>Сортировать по цене</option>
                         <option value="1">По возрастанию </option>
                         <option value="2">По убыванию</option>
@@ -40,7 +40,7 @@
                 </form>
             </div>
         </div>
-        
+
         <div class="row g-5 d-flex justify-content-center">
             @foreach ($products as $item)
                 <div class="col-md-3">
@@ -58,6 +58,7 @@
                                 <p class="card-text">{{ $item->small_description }}</p>
                                 <p class="card-text">Цена: {{ $item->price }} руб.</p>
                             </div>
+                            <!-- TODO: Сделать кнопку добавить и после прибавить или убавить после авторизации -->
                         </div>
                     </a>
                 </div>
