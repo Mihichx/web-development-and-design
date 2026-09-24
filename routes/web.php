@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
+// TODO: Подключить контроллеры, сделать как с админкой
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +18,12 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', [App\Http\Controllers\AboutController::class, 'index'])->name('about');
 Route::get('/products', [App\Http\Controllers\CatalogController::class, 'index'])->name('products');
-Route::get('/product/{id}', [App\Http\Controllers\CatalogController::class, 'indexId'])->name('product');
+Route::get('/product/{id}', [App\Http\Controllers\CatalogController::class, 'indexId'])->name('product'); // FIXME: Изменить /products/{product}, функцию назвать show и name('products.show')
 Route::get('/find', [App\Http\Controllers\FindController::class, 'index'])->name('find');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
-    Route::post('/cart', [App\Http\Controllers\CartController::class, 'store'])->name('cart_post');
+    Route::post('/cart', [App\Http\Controllers\CartController::class, 'store'])->name('cart_post'); // FIXME: Изменить name('cart.store')
 
     Route::prefix('admin')->name('admin.')->group(function () { //  TODO: Сделать проверку на вход только для админов
         Route::get('/', [AdminController::class, 'index'])->name('index');

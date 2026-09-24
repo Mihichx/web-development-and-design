@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- TODO: Добавить иконку компании -->
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">

@@ -13,7 +13,7 @@ class Product extends Model
 
    public $timestamps = false;
 
-   protected $fillable = [ // TODO: Добавить новые столбики
+   protected $fillable = [ // FIXME: Добавить новые столбики
         'id',
         'img',
         'name',
