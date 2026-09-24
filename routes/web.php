@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,22 @@ Route::get('/product/{id}', [App\Http\Controllers\CatalogController::class, 'ind
 Route::get('/find', [App\Http\Controllers\FindController::class, 'index'])->name('find');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/order', [App\Http\Controllers\AdminController::class, 'indexOrder'])->name('admin_order');
-
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
     Route::post('/cart', [App\Http\Controllers\CartController::class, 'store'])->name('cart_post');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/orders', [AdminController::class, 'ordersIndex'])->name('orders.index');
+        Route::put('/orders/{order}', [AdminController::class, 'ordersUpdate'])->name('orders.update');
+
+        Route::get('/products', [AdminController::class, 'productsIndex'])->name('products.index');
+        Route::post('/products', [AdminController::class, 'productsStore'])->name('products.store');
+        Route::put('/products/{product}', [AdminController::class, 'productsUpdate'])->name('products.update');
+        Route::delete('/products/{product}', [AdminController::class, 'productsDestroy'])->name('products.destroy');
+
+        Route::get('/categories', [AdminController::class, 'categoriesIndex'])->name('categories.index');
+        Route::post('/categories', [AdminController::class, 'categoriesStore'])->name('categories.store');
+        Route::delete('/categories/{category}', [AdminController::class, 'categoriesDestroy'])->name('categories.destroy');
+    });
 });
 
 Auth::routes();

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('content_admin')
+@section('content')
     <div class="container my-5">
         <h1 class="me-4">Админка</h1>
 

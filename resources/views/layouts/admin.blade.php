@@ -28,17 +28,17 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item me-4">
-                            <a class="nav-link {{ Route::is('admin_order') ? 'active' : '' }}"
-                                href="{{ route('admin_order') }}">Заказы</a>
+                            <a class="nav-link {{ Route::is('admin.orders.index') ? 'active' : '' }}"
+                                href="{{ route('admin.orders.index') }}">Заказы</a>
                         </li>
-                        {{-- <li class="nav-item me-4">
-                            <a class="nav-link {{ Route::is('admin_product') ? 'active' : '' }}"
-                                href="{{ route('admin_products') }}">Товары</a>
+                        <li class="nav-item me-4">
+                            <a class="nav-link {{ Route::is('admin.products.index') ? 'active' : '' }}"
+                                href="{{ route('admin.products.index') }}">Товары</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('admin_category') ? 'active' : '' }}"
-                                href="{{ route('admin_category') }}">Категории</a>
-                        </li> --}}
+                            <a class="nav-link {{ Route::is('admin.categories.index') ? 'active' : '' }}"
+                                href="{{ route('admin.categories.index') }}">Категории</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -82,7 +82,7 @@
         </nav>
 
         <main class="py-4">
-            @yield('content_admin')
+            @yield('content')
         </main>
     </div>
 </body>
