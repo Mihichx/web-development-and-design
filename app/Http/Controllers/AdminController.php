@@ -15,6 +15,14 @@ class AdminController extends Controller
 
     public function ordersUpdate(Request $request)
     {
+        $request = $request->all();
+
+        if ($request['status'] == 0) {
+            echo $request['cause'];
+        }
+        echo $request['status'];
+        exit;
+
         return redirect()->route('admin.orders.index');
     }
 

@@ -28,22 +28,28 @@
                 </tr>
             </thead>
             <tbody>
+                {{-- @if (!empty($orders))
+                    @foreach ($orders as $item)
+
+                    @endforeach
+                @else
+                    <h1>Пусто</h1>
+                @endif --}}
                 <tr>
-                    <th scope="row">1{{-- id --}}</th>
-                    <td>Михайлов Михаил{{-- surname, name, patronymic (по user_id) --}}</td>
-                    <td>23{{-- кол-во товаров (по value - json) --}}</td>
-                    <td>2026-09-16{{-- order_date --}}</td>
+                    <th scope="row">1{{-- $item->id --}}</th>
+                    <td>Михайлов Михаил{{-- $item->surname, $item->name, $item->patronymic (по user_id) --}}</td>
+                    <td>23{{-- кол-во товаров (по $item->value - json) --}}</td>
+                    <td>2026-09-16{{-- $item->order_date --}}</td>
                     <td class="d-flex flex-row">
-                        <form method="POST">
+                        <form method="POST" action="{{ route('admin.orders.update', 1 {{-- $item->id --}}) }}">
                             @csrf
+                            @method('PUT')
+
                             <input type="hidden" name="status" value="1">
                             <button class="btn btn-success me-1">Подтвердить</button>
                         </form>
-                        <form method="POST">
-                            @csrf
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Отменить</button>
-                        </form>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Отменить</button>
                     </td>
                 </tr>
             </tbody>
@@ -57,10 +63,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" id="accept">
+                        <form method="POST" action="{{ route('admin.orders.update', 1 {{-- $item->id --}}) }}" id="accept">
+                            @csrf
+                            @method('PUT')
+
                             <div class="mb-3">
+                                <input type="hidden" name="status" value="0">
                                 <label for="message-text" class="col-form-label">Сообщение:</label>
-                                <textarea name="status" class="form-control" id="message-text"></textarea>
+                                <textarea name="cause" class="form-control" id="message-text" required></textarea>
                             </div>
                         </form>
                     </div>
