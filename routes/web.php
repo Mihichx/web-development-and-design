@@ -24,7 +24,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
     Route::post('/cart', [App\Http\Controllers\CartController::class, 'store'])->name('cart_post');
 
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () { //  TODO: Сделать проверку на вход только для админов
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+
         Route::get('/orders', [AdminController::class, 'ordersIndex'])->name('orders.index');
         Route::put('/orders/{order}', [AdminController::class, 'ordersUpdate'])->name('orders.update');
 
