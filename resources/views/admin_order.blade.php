@@ -28,24 +28,30 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1{{-- id --}}</th>
-                    <td>Михайлов Михаил{{-- surname, name, patronymic (по user_id) --}}</td>
-                    <td>23{{-- кол-во товаров (по value - json) --}}</td>
-                    <td>2026-09-16{{-- order_date --}}</td>
-                    <td class="d-flex flex-row">
-                        <form method="POST">
-                            @csrf
-                            <input type="hidden" name="status" value="1">
-                            <button class="btn btn-success me-1">Подтвердить</button>
-                        </form>
-                        <form method="POST">
-                            @csrf
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" data-bs-whatever="@mdo">Отменить</button>
-                        </form>
-                    </td>
-                </tr>
+                @if (!empty($orders))
+                    @foreach ($orders as $item)
+                        <tr>
+                            <th scope="row">1{{-- $item->id --}}</th>
+                            <td>Михайлов Михаил{{-- $item->surname, $item->name, $item->patronymic (по user_id) --}}</td>
+                            <td>23{{-- кол-во товаров (по $item->value - json) --}}</td>
+                            <td>2026-09-16{{-- $item->order_date --}}</td>
+                            <td class="d-flex flex-row">
+                                <form method="POST" action="{{ route('admin.orders.update') }}">
+                                    @csrf
+                                    @method('PUT')
+
+                                    <input type="hidden" name="id" value="1{{-- $item->id --}}">
+                                    <input type="hidden" name="status" value="1">
+                                    <button class="btn btn-success me-1">Подтвердить</button>
+                                </form>
+                                <button type="button" class="btn btn-danger open-modal-btn" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" data-id="1{{-- $item->id --}}">Отменить</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <h1>Пусто</h1>
+                @endif
             </tbody>
         </table>
 

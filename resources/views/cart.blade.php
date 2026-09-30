@@ -34,7 +34,7 @@
                 </form>
             </div>
         </div>
-        
+
         <div class="row g-5">
             {{-- @if (!empty($products))
                 @foreach ($products as $item)
@@ -55,7 +55,7 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">Сканер 1</h5> {{-- name --}}
                         <p class="card-text">Очень крутой и качественный сканер для печати денег</p>
-                        {{--  description --}}
+                        {{-- description --}}
                         <p class="card-text">Цена: 200 руб.</p> {{-- price --}}
                         <p class="card-text">Кол-во: 2</p>
                         <div class="d-flex flex-row m-auto">
