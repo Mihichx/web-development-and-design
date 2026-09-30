@@ -7,12 +7,15 @@ use App\Models\OrderProduct;
 
 class AdminController extends Controller
 {
-    public function indexLogin()
+    public function index()
     {
-        return view('admin_login');
+        return view('admin.index');
     }
 
-    public function indexOrder()
+    /**
+     * Заказы
+     */
+    public function ordersIndex()
     {
         $items = OrderProduct::select('id', 'user_id', 'value', 'order_date');
 

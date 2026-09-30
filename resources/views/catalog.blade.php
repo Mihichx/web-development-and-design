@@ -60,6 +60,7 @@
                                 <p class="card-text">{{ $item->small_description }}</p>
                                 <p class="card-text">Цена: {{ $item->price }} руб.</p>
                             </div>
+                            <!-- TODO: Сделать кнопку добавить и после прибавить или убавить после авторизации -->
                         </div>
                     </a>
                 </div>

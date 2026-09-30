@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- ICON -->
+    <link rel="icon" type="image/png" href="{{ asset('img/icons-scanner-100.png') }}">
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -17,7 +20,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand"> Copy Star</a>
+                <a href="/" class="navbar-brand"> Copy Star</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -28,17 +31,17 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item me-4">
-                            <a class="nav-link {{ Route::is('admin_order') ? 'active' : '' }}"
-                                href="{{ route('admin_order') }}">Заказы</a>
+                            <a class="nav-link {{ Route::is('admin.orders.index') ? 'active' : '' }}"
+                                href="{{ route('admin.orders.index') }}">Заказы</a>
                         </li>
-                        {{-- <li class="nav-item me-4">
-                            <a class="nav-link {{ Route::is('admin_product') ? 'active' : '' }}"
-                                href="{{ route('admin_products') }}">Товары</a>
+                        <li class="nav-item me-4">
+                            <a class="nav-link {{ Route::is('admin.products.index') ? 'active' : '' }}"
+                                href="{{ route('admin.products.index') }}">Товары</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('admin_category') ? 'active' : '' }}"
-                                href="{{ route('admin_category') }}">Категории</a>
-                        </li> --}}
+                            <a class="nav-link {{ Route::is('admin.categories.index') ? 'active' : '' }}"
+                                href="{{ route('admin.categories.index') }}">Категории</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -60,7 +63,7 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->login }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -82,7 +85,7 @@
         </nav>
 
         <main class="py-4">
-            @yield('content_admin')
+            @yield('content')
         </main>
     </div>
 </body>

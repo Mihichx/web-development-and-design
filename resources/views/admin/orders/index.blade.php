@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('content_admin')
+@section('content')
     <div class="container my-5">
         <h1 class="me-4">Админка</h1>
 
@@ -63,10 +63,15 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" id="accept">
+                        <form method="POST" action="{{ route('admin.orders.update') }}" id="accept">
+                            @csrf
+                            @method('PUT')
+
                             <div class="mb-3">
+                                <input type="hidden" name="id" id="modal-product-id" value="0">
+                                <input type="hidden" name="status" value="0">
                                 <label for="message-text" class="col-form-label">Сообщение:</label>
-                                <textarea name="status" class="form-control" id="message-text"></textarea>
+                                <textarea name="cause" class="form-control" id="message-text" required></textarea>
                             </div>
                         </form>
                     </div>

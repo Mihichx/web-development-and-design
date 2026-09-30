@@ -18,7 +18,9 @@
                         <h5 class="card-title">{{ $item->name }}</h5>
                         <p class="card-text">{{ $item->description }}</p>
                         <p class="card-text">Цена: {{ $item->price }} руб.</p>
+                        <!-- TODO: Сделать страна-производитель, год выпуска, модель -->
                     </div>
+                    <!-- TODO: Сделать кнопку добавить и после прибавить или убавить после авторизации -->
                 </div>
             </div>
         </div>
