@@ -12,16 +12,33 @@ class CatalogController extends Controller
     {
         $categories = Category::all();
 
-        // FIXME: Выбирать сначала новые и сделать проверку на наличие товаров
-        $query = Product::select('id', 'name', 'small_description', 'price', 'img'); // ->where('id' > 0)
+        $query = Product::select('id', 'name', 'small_description', 'price', 'img')->where('quantity', '>', 0);
 
-        if ($request->has('sort_price')) {
-            $value = $request->input('sort_price') == 1 ? 'asc' : 'desc';
-            $query->orderBy('price', $value)->get();
+        if ($request->filled('sort_price')) {
+            $value = $request->input('sort_price');
+            if ($value == 1) {
+                $query->orderBy('price', 'asc')->get();
+            } elseif ($value == 2) {
+                $query->orderBy('price', 'desc')->get();
+            }
         }
 
-        $products = $query->paginate(2);
+        if ($request->filled('sort_year')) {
+            $value = $request->input('sort_year');
+            if ($value == 1) {
+                $query->orderBy('release_at', 'asc')->get();
+            } elseif ($value == 2) {
+                $query->orderBy('release_at', 'desc')->get();
+            }
+        }
 
+        if ($request->filled('sort_category') && $request->input('sort_category') != 0) {
+            $value = $request->input('sort_category');
+            $query->where('category_id', $value)->get();
+        }
+
+        $products = $query->where('name', 'LIKE', '%' . $request->input('search') . '%')->orderBy('create_at', 'desc')->paginate(2);
+      
         return view('catalog', compact('products', 'categories'));
     }
 

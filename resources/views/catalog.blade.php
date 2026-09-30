@@ -3,44 +3,43 @@
 @section('content')
     <div class="container my-5">
         <h1 class="mb-4">Каталог</h1>
-
-        <div class="row">
-            <div class="col-md-12 mb-4">
-                <form method="" class="d-flex" role="search"> {{-- POST --}}
-                    <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Найти</button>
-                </form>
-            </div>
-            <div class="col-md-4 mb-4">
-                <form method="GET">
+        
+        <form method="GET">
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <div class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name="search" value="{{ request('search') }}">
+                        <button class="btn btn-outline-success" type="submit">Найти</button>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
                     <select class="form-select" aria-label="Default select example" name="sort_price"
                         onchange="this.form.submit()">
-                        <option selected>Сортировать по цене</option>
-                        <option value="1">По возрастанию</option>
-                        <option value="2">По убыванию</option>
+                        <option value="0">Сортировать по цене</option>
+                        <option value="1" {{ request('sort_price') == 1 ? 'selected' : '' }}>По возрастанию</option>
+                        <option value="2" {{ request('sort_price') == 2 ? 'selected' : '' }}>По убыванию</option>
                     </select>
-                </form>
-            </div>
-            <div class="col-md-4 mb-4">
-                <form method="GET">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Сортировать по году</option>
-                        <option value="1">По возрастанию</option>
-                        <option value="2">По убыванию</option>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <select class="form-select" aria-label="Default select example" name="sort_year"
+                        onchange="this.form.submit()">
+                        <option value="0" selected>Сортировать по году</option>
+                        <option value="1" {{ request('sort_year') == 1 ? 'selected' : '' }}>Новые</option>
+                        <option value="2" {{ request('sort_year') == 2 ? 'selected' : '' }}>Старые</option>
                     </select>
-                </form>
-            </div>
-            <div class="col-md-4 mb-4">
-                <form method="GET">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Категории</option>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <select class="form-select" aria-label="Default select example" name="sort_category"
+                        onchange="this.form.submit()">
+                        <option value="0" selected>Категории</option>
                         @foreach ($categories as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option value="{{ $item->id }}"
+                                {{ request('sort_category') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                         @endforeach
                     </select>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
 
         <div class="row g-5 d-flex justify-content-center">
             @foreach ($products as $item)
@@ -66,7 +65,7 @@
                 </div>
             @endforeach
             <div class="d-flex justify-content-center">
-                {{ $products->links('pagination::bootstrap-4') }}
+                {{ $products->withQueryString()->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>

@@ -9,16 +9,25 @@ class Product extends Model
 {
     use HasFactory;
 
-   protected $primaryKey = 'id';
+    protected $primaryKey = 'id';
 
-   public $timestamps = false;
-
-   protected $fillable = [ // FIXME: Добавить новые столбики
+    protected $fillable = [
         'id',
         'img',
         'name',
+        'small_description',
         'description',
-        'yer_release',
+        'model',
+        'country',
+        'release_at',
         'prise',
+        'category_id',
+        'availability',
+        'quantity',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

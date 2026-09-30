@@ -33,7 +33,7 @@
                                 нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('catalog') ? 'active' : '' }}"
+                            <a class="nav-link {{ Route::is('products') ? 'active' : '' }}"
                                 href="{{ route('products') }}">Каталог</a>
                         </li>
                         <li class="nav-item">
