@@ -3,7 +3,7 @@
 @section('content')
     <div class="container my-5">
         <h1 class="mb-4">Каталог</h1>
-        
+
         <form method="GET">
             <div class="row">
                 <div class="col-md-12 mb-4">
@@ -44,7 +44,7 @@
         <div class="row g-5 d-flex justify-content-center">
             @foreach ($products as $item)
                 <div class="col-md-3">
-                    <a href="{{ route('product', $item->id) }}" class="hover text-dark">
+                    <a href="{{ route('products') . '/' . $item->id }}" class="hover text-dark">
                         <div class="card h-100">
                             <picture>
                                 <source srcset="{{ asset('img/' . $item->img . '.avif') }}" type="image/avif">

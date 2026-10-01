@@ -38,11 +38,11 @@ class CatalogController extends Controller
         }
 
         $products = $query->where('name', 'LIKE', '%' . $request->input('search') . '%')->orderBy('create_at', 'desc')->paginate(2);
-      
+
         return view('catalog', compact('products', 'categories'));
     }
 
-    public function indexId(int $id)
+    public function show(int $id)
     {
         $item = Product::where('id', $id)->select('id', 'name', 'description', 'price', 'img')->firstOrFail();
 
