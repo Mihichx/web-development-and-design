@@ -44,7 +44,7 @@ class CatalogController extends Controller
 
     public function show(int $id)
     {
-        $item = Product::where('id', $id)->select('id', 'name', 'description', 'price', 'img')->firstOrFail();
+        $item = Product::where('id', $id)->select('id', 'name', 'description', 'country', 'release_at', 'model', 'price', 'img')->firstOrFail();
 
         return view('product', compact('item'));
     }

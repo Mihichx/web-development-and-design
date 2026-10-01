@@ -8,7 +8,8 @@
             <div class="row">
                 <div class="col-md-12 mb-4">
                     <div class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name="search" value="{{ request('search') }}">
+                        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name="search"
+                            value="{{ request('search') }}">
                         <button class="btn btn-outline-success" type="submit">Найти</button>
                     </div>
                 </div>
@@ -44,8 +45,8 @@
         <div class="row g-5 d-flex justify-content-center">
             @foreach ($products as $item)
                 <div class="col-md-3">
-                    <a href="{{ route('products') . '/' . $item->id }}" class="hover text-dark">
-                        <div class="card h-100">
+                    <div class="card h-100">
+                        <a href="{{ route('products') . '/' . $item->id }}" class="hover text-dark">
                             <picture>
                                 <source srcset="{{ asset('img/' . $item->img . '.avif') }}" type="image/avif">
                                 <source srcset="{{ asset('img/' . $item->img . '.webp') }}" type="image/webp">
@@ -59,9 +60,12 @@
                                 <p class="card-text">{{ $item->small_description }}</p>
                                 <p class="card-text">Цена: {{ $item->price }} руб.</p>
                             </div>
-                            <!-- TODO: Сделать кнопку добавить и после прибавить или убавить после авторизации -->
-                        </div>
-                    </a>
+                        </a>
+                        @auth
+                            <button class="btn btn-primary">Добавить</button>
+                        @endauth
+                        <!-- TODO: Сделать рабочую кнопку, после добавление появиться + или - -->
+                    </div>
                 </div>
             @endforeach
             <div class="d-flex justify-content-center">
