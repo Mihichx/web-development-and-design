@@ -9,64 +9,27 @@
 
     <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                aria-label="Slide 2""></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                aria-label="Slide 3""></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
-                aria-label="Slide 4"></button>
+            @foreach ($products as $quantity => $item)
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $quantity }}"
+                    class="{{ $quantity == 0 ? 'active' : '' }}" aria-current="true"
+                    aria-label="Slide {{ $quantity + 1 }}"></button>
+            @endforeach
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <picture>
-                    <source srcset="{{ asset('img/scan1.avif') }}" type="image/avif">
-                    <source srcset="{{ asset('img/scan1.webp') }}" type="image/webp">
-                    <source srcset="{{ asset('img/scan1.png') }}" type="image/png">
-                    <img src="{{ asset('img/scan1.jpg') }}" class="d-block m-auto object-fit-cover" style="height: 25rem;"
-                        alt="Сканер 1">
-                </picture>
-                <div class="carousel-caption d-none d-md-block custom-caption">
-                    <h5>Сканер 1</h5>
+            @foreach ($products as $quantity => $item)
+                <div class="carousel-item {{ $quantity == 0 ? 'active' : '' }}">
+                    <picture>
+                        <source srcset="{{ asset('img/' . $item->img . '.avif') }}" type="image/avif">
+                        <source srcset="{{ asset('img/' . $item->img . '.webp') }}" type="image/webp">
+                        <source srcset="{{ asset('img/' . $item->img . '.png') }}" type="image/png">
+                        <img src="{{ asset('img/' . $item->img . '.jpg') }}" class="d-block m-auto object-fit-cover"
+                            style="height: 25rem;" alt="{{ $item->name }}">
+                    </picture>
+                    <div class="carousel-caption d-none d-md-block custom-caption">
+                        <h5>{{ $item->name }}</h5>
+                    </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <picture>
-                    <source srcset="{{ asset('img/scan2.avif') }}" type="image/avif">
-                    <source srcset="{{ asset('img/scan2.webp') }}" type="image/webp">
-                    <source srcset="{{ asset('img/scan2.png') }}" type="image/png">
-                    <img src="{{ asset('img/scan2.jpg') }}" class="d-block m-auto object-fit-cover" style="height: 25rem;"
-                        alt="Сканер 2">
-                </picture>
-                <div class="carousel-caption d-none d-md-block custom-caption">
-                    <h5>Сканер 2</h5>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <picture>
-                    <source srcset="{{ asset('img/scan3.avif') }}" type="image/avif">
-                    <source srcset="{{ asset('img/scan3.webp') }}" type="image/webp">
-                    <source srcset="{{ asset('img/scan3.png') }}" type="image/png">
-                    <img src="{{ asset('img/scan3.jpg') }}" class="d-block m-auto object-fit-cover" style="height: 25rem;"
-                        alt="Сканер 3">
-                </picture>
-                <div class="carousel-caption d-none d-md-block custom-caption">
-                    <h5>Сканер 3</h5>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <picture>
-                    <source srcset="{{ asset('img/scan4.avif') }}" type="image/avif">
-                    <source srcset="{{ asset('img/scan4.webp') }}" type="image/webp">
-                    <source srcset="{{ asset('img/scan4.png') }}" type="image/png">
-                    <img src="{{ asset('img/scan4.jpg') }}" class="d-block m-auto object-fit-cover" style="height: 25rem;"
-                        alt="Сканер 4">
-                </picture>
-                <div class="carousel-caption d-none d-md-block custom-caption">
-                    <h5>Сканер 4</h5>
-                </div>
-            </div>
+            @endforeach
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1);"></span>
