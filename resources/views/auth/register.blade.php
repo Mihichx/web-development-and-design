@@ -132,7 +132,7 @@
                                     <!-- TODO: Сделать обязательным -->
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="rules" id="rules"
-                                            {{ old('rules') ? 'checked' : '' }}>
+                                            {{ old('rules') ? 'checked' : '' }} required>
 
                                         <label class="form-check-label" for="rules">
                                             Соглашение с правилами регистрации
