@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\OrderProduct;
+use App\Models\OrderStatus;
 
 class AdminController extends Controller
 {
@@ -17,19 +18,28 @@ class AdminController extends Controller
      */
     public function ordersIndex()
     {
-        $orders = OrderProduct::select('id', 'user_id', 'value', 'order_date')->with('user')->get();
+        $orders = OrderProduct::select('id', 'user_id', 'value', 'order_status_id', 'order_date')->with('user', 'status')->get();
 
         return view('admin.orders.index', compact('orders'));
     }
 
-    public function ordersUpdate(Request $request)
+    public function ordersUpdate(Request $request, int $id)
     {
-        $request = $request->all();
+        $newStatusId = $request->input('status');
 
-        print_r($request);
-        exit;
+        $status = OrderStatus::find($newStatusId);
+        if (!$status) {
+            return redirect()->route('admin.orders.index')->with('error', 'Недопустимый статус заказа');
+        }
 
-        return redirect()->route('admin.orders.index');
+        $order = OrderProduct::find($id);
+        if (!$order) {
+            return redirect()->route('admin.orders.index')->with('error', 'Заказ не найден');
+        }
+        
+        $order->update(['order_status_id' => $newStatusId, 'reason_for_cancellation' => $request->input('cause')]);
+
+        return redirect()->route('admin.orders.index')->with('success', 'Статус заказа успешно обновлен');
     }
 
     /**
