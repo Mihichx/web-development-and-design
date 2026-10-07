@@ -129,7 +129,6 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-6 offset-md-4">
-                                    <!-- TODO: Сделать обязательным -->
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="rules" id="rules"
                                             {{ old('rules') ? 'checked' : '' }} required>

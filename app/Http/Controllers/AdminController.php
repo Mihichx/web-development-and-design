@@ -17,9 +17,9 @@ class AdminController extends Controller
      */
     public function ordersIndex()
     {
-        $items = OrderProduct::select('id', 'user_id', 'value', 'order_date');
+        $orders = OrderProduct::select('id', 'user_id', 'value', 'order_date')->with('user')->get();
 
-        return view('admin.orders.index');
+        return view('admin.orders.index', compact('orders'));
     }
 
     public function ordersUpdate(Request $request)

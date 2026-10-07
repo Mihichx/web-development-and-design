@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
     <!-- ICON -->
     <link rel="icon" type="image/png" href="{{ asset('img/icons-scanner-100.png') }}">
 
@@ -47,6 +47,11 @@
                                 <a class="nav-link {{ Route::is('cart') ? 'active' : '' }}"
                                     href="{{ route('cart') }}">Корзина</a>
                             </li>
+                            @if (auth()->user()->is_admin)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>
+                                </li>
+                            @endif
                         @endauth
                     </ul>
 
