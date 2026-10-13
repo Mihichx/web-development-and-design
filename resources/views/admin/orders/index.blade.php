@@ -33,12 +33,8 @@
                         <tr>
                             <th scope="row">{{ $item->id }}</th>
                             <td>{{ $item->user->surname }} {{ $item->user->name }} {{ $item->user->patronymic }}</td>
-                            @php
-                                $products = json_decode($item->value, true);
-                                $count = is_array($products) ? count($products) : 0;
-                            @endphp
-                            <td>{{ $count }}</td>
-                            <td>{{ $item->order_date }}</td>
+                            <td>0</td>
+                            <td>{{ $item->created_at }}</td>
                             <td class="d-flex flex-row">
                                 @if ($item->order_status_id === 1)
                                     <form method="POST" action="{{ route('admin.orders.update', $item->id) }}">
@@ -65,32 +61,34 @@
             </tbody>
         </table>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Причина отмены</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST" action="{{ route('admin.orders.update', $item->id) }}" id="accept">
-                            @csrf
-                            @method('PUT')
+        @if ($orders->isNotEmpty())
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Причина отмены</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{ route('admin.orders.update', $item->id) }}" id="accept">
+                                @csrf
+                                @method('PUT')
 
-                            <div class="mb-3">
-                                <input type="hidden" name="id" id="modal-product-id" value="0">
-                                <input type="hidden" name="status" value="3">
-                                <label for="message-text" class="col-form-label">Сообщение:</label>
-                                <textarea name="cause" class="form-control" id="message-text" required></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                        <button type="submit" class="btn btn-primary" form="accept">Отправить</button>
+                                <div class="mb-3">
+                                    <input type="hidden" name="id" id="modal-product-id" value="0">
+                                    <input type="hidden" name="status" value="3">
+                                    <label for="message-text" class="col-form-label">Сообщение:</label>
+                                    <textarea name="cause" class="form-control" id="message-text" required></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" form="accept">Отправить</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\OrderProduct;
+use App\Models\Order;
 use App\Models\OrderStatus;
 
 class AdminController extends Controller
@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function ordersIndex()
     {
-        $orders = OrderProduct::select('id', 'user_id', 'value', 'order_status_id', 'order_date')->with('user', 'status')->get();
+        $orders = Order::select('id', 'user_id', 'order_status_id', 'created_at')->with('user', 'status')->get();
 
         return view('admin.orders.index', compact('orders'));
     }
@@ -32,11 +32,11 @@ class AdminController extends Controller
             return redirect()->route('admin.orders.index')->with('error', 'Недопустимый статус заказа');
         }
 
-        $order = OrderProduct::find($id);
+        $order = Order::find($id);
         if (!$order) {
             return redirect()->route('admin.orders.index')->with('error', 'Заказ не найден');
         }
-        
+
         $order->update(['order_status_id' => $newStatusId, 'reason_for_cancellation' => $request->input('cause')]);
 
         return redirect()->route('admin.orders.index')->with('success', 'Статус заказа успешно обновлен');

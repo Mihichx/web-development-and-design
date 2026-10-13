@@ -9,24 +9,10 @@ class OrderProduct extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
-        'user_id',
-        'value',
-        'order_status_id',
-        'reason_for_cancellation',
-        'order_date',
-        'arrival_date',
+        'order_id',
+        'product_id',
+        'quantity',
+        'price_at_purchase',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function status()
-    {
-        return $this->belongsTo(OrderStatus::class, 'order_status_id', 'id');
-    }
 }
