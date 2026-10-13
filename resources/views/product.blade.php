@@ -4,6 +4,16 @@
     <div class="container my-5">
         <h1 class="mb-4">Продукт</h1>
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @elseif (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif 
+
         <div class="row d-flex align-items-center justify-content-center">
             <div class="col-md-6">
                 <div class="card">
@@ -30,12 +40,14 @@
                                 <form method="POST" action="{{ route('cart.update', $product->id) }}">
                                     @csrf
                                     @method('PUT')
+                                    <input type="hidden" name="return_url" value="{{ request()->fullUrl() }}">
                                     <input type="hidden" name="plus" value="1">
                                     <button class="btn btn-secondary me-1">+</button>
                                 </form>
                                 <form method="POST" action="{{ route('cart.update', $product->id) }}">
                                     @csrf
                                     @method('PUT')
+                                    <input type="hidden" name="return_url" value="{{ request()->fullUrl() }}">
                                     <input type="hidden" name="minus" value="1">
                                     <button class="btn btn-secondary me-1">-</button>
                                 </form>
@@ -43,6 +55,7 @@
                         @else
                             <form class="mt-auto" method="POST" action="{{ route('cart.store') }}">
                                 @csrf
+                                <input type="hidden" name="return_url" value="{{ request()->fullUrl() }}">
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <button class="btn btn-primary w-100">Добавить</button>
                             </form>

@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CatalogController::class, 'store'])->name('cart.store');
     Route::put('/cart/update/{id}', [CatalogController::class, 'update'])->name('cart.update');
+    Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 });
 
 Route::middleware(['admin'])->group(function () {

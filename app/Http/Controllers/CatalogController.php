@@ -63,6 +63,7 @@ class CatalogController extends Controller
 
     public function store(Request $request)
     {
+        $redirectTo = $request->input('return_url', route('catalog.index'));
         $productId = $request->input('product_id');
         $product = Product::findOrFail($productId);
         $productQuantity = $product->quantity;
@@ -83,11 +84,12 @@ class CatalogController extends Controller
 
         $product->decrement('quantity');
 
-        return redirect()->route('catalog.index')->with('success', 'Товар добавлен');
+        return redirect()->to($redirectTo)->with('success', 'Товар добавлен');
     }
 
     public function update(Request $request, int $id)
     {
+        $redirectTo = $request->input('return_url', route('catalog.index'));
         $plusValue = $request->filled('plus') ? abs((int)$request->input('plus')) : 0;
         $minusValue = $request->filled('minus') ? abs((int)$request->input('minus')) : 0;
 
@@ -121,9 +123,9 @@ class CatalogController extends Controller
                 }
             });
 
-            return redirect()->route('catalog.index')->with('success', 'Товар изменён');
+            return redirect()->to($redirectTo)->with('success', 'Товар изменён');
         } catch (\Exception $e) {
-            return redirect()->route('catalog.index')->with('error', $e->getMessage());
+            return redirect()->to($redirectTo)->with('error', $e->getMessage());
         }
     }
 }
