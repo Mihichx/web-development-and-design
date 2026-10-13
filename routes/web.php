@@ -19,10 +19,10 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', [AboutController::class, 'index'])->name('about');
-Route::get('/find', [FindController::class, 'index'])->name('find');
+Route::get('/', [AboutController::class, 'index'])->name('about.index');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
 Route::get('/product/{id}', [CatalogController::class, 'show'])->name('catalog.show');
+Route::get('/find', [FindController::class, 'index'])->name('find.index');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

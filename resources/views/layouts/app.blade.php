@@ -31,21 +31,21 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('about') ? 'active' : '' }}" href="{{ route('about') }}">О
+                            <a class="nav-link {{ Route::is('about.index') ? 'active' : '' }}" href="{{ route('about.index') }}">О
                                 нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('products') ? 'active' : '' }}"
-                                href="{{ route('products') }}">Каталог</a>
+                            <a class="nav-link {{ Route::is('catalog.index') ? 'active' : '' }}"
+                                href="{{ route('catalog.index') }}">Каталог</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('find') ? 'active' : '' }}" href="{{ route('find') }}">Где
+                            <a class="nav-link {{ Route::is('find.index') ? 'active' : '' }}" href="{{ route('find.index') }}">Где
                                 мы</a>
                         </li>
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link {{ Route::is('cart') ? 'active' : '' }}"
-                                    href="{{ route('cart') }}">Корзина</a>
+                                <a class="nav-link {{ Route::is('cart.index') ? 'active' : '' }}"
+                                    href="{{ route('cart.index') }}">Корзина</a>
                             </li>
                             @if (auth()->user()->is_admin)
                                 <li class="nav-item">
