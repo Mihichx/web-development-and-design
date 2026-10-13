@@ -20,13 +20,14 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', [AboutController::class, 'index'])->name('about');
-Route::get('/products', [CatalogController::class, 'index'])->name('products');
-Route::get('/products/{product}', [CatalogController::class, 'show'])->name('products.show');
 Route::get('/find', [FindController::class, 'index'])->name('find');
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/product/{id}', [CatalogController::class, 'show'])->name('catalog.show');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/cart', [CartController::class, 'index'])->name('cart');
-    Route::post('/cart', [CartController::class, 'store'])->name('cart.post');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [CatalogController::class, 'store'])->name('cart.store');
+    Route::put('/cart/update/{id}', [CatalogController::class, 'update'])->name('cart.update');
 });
 
 Route::middleware(['admin'])->group(function () {

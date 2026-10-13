@@ -33,38 +33,71 @@
                     <select class="form-select" aria-label="Default select example" name="sort_category"
                         onchange="this.form.submit()">
                         <option value="0" selected>Категории</option>
-                        @foreach ($categories as $item)
-                            <option value="{{ $item->id }}"
-                                {{ request('sort_category') == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                        @foreach ($categories as $product)
+                            <option value="{{ $product->id }}"
+                                {{ request('sort_category') == $product->id ? 'selected' : '' }}>{{ $product->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
             </div>
         </form>
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @elseif (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="row g-5 d-flex justify-content-center">
-            @foreach ($products as $item)
+            @foreach ($products as $product)
                 <div class="col-md-3">
                     <div class="card h-100">
-                        <a href="{{ route('products') . '/' . $item->id }}" class="hover text-dark">
+                        <a href="{{ route('catalog.show', $product->id) }}" class="hover text-dark">
                             <picture>
-                                <source srcset="{{ asset('img/' . $item->img . '.avif') }}" type="image/avif">
-                                <source srcset="{{ asset('img/' . $item->img . '.webp') }}" type="image/webp">
-                                <source srcset="{{ asset('img/' . $item->img . '.png') }}" type="image/png">
-                                <img src="{{ asset('img/' . $item->img . '.jpg') }}"
+                                <source srcset="{{ asset('img/' . $product->img . '.avif') }}" type="image/avif">
+                                <source srcset="{{ asset('img/' . $product->img . '.webp') }}" type="image/webp">
+                                <source srcset="{{ asset('img/' . $product->img . '.png') }}" type="image/png">
+                                <img src="{{ asset('img/' . $product->img . '.jpg') }}"
                                     class="card-img-top object-fit-contain p-3" style="height: 220px;"
-                                    alt="{{ $item->name }}">
+                                    alt="{{ $product->name }}">
                             </picture>
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $item->name }}</h5>
-                                <p class="card-text">{{ $item->small_description }}</p>
-                                <p class="card-text">Цена: {{ $item->price }} руб.</p>
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <p class="card-text">{{ $product->small_description }}</p>
+                                <p class="card-text">Цена: {{ $product->price }} руб.</p>
+                                <p class="card-text">Кол-во на складе: {{ $product->quantity }}</p>
                             </div>
                         </a>
                         @auth
-                            <button class="btn btn-primary">Добавить</button>
+                            @if ($cart->contains('product_id', $product->id))
+                                <p class="m-auto">Кол-во: {{ $cart->firstWhere('product_id', $product->id)->quantity }}</p>
+                                <div class="d-flex flex-row m-auto">
+                                    <form method="POST" action="{{ route('cart.update', $product->id) }}">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="plus" value="1">
+                                        <button class="btn btn-secondary me-1">+</button>
+                                    </form>
+                                    <form method="POST" action="{{ route('cart.update', $product->id) }}">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="minus" value="1">
+                                        <button class="btn btn-secondary me-1">-</button>
+                                    </form>
+                                </div>
+                            @else
+                                <form class="mt-auto" method="POST" action="{{ route('cart.store') }}">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <button class="btn btn-primary w-100">Добавить</button>
+                                </form>
+                            @endif
                         @endauth
-                        <!-- TODO: Сделать рабочую кнопку, после добавление появиться + или - -->
                     </div>
                 </div>
             @endforeach

@@ -9,10 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id';
-
     protected $fillable = [
-        'id',
         'img',
         'name',
         'small_description',
@@ -22,7 +19,6 @@ class Product extends Model
         'release_at',
         'prise',
         'category_id',
-        'availability',
         'quantity',
     ];
 
