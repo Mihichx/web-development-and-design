@@ -17,6 +17,12 @@
             </div>
         </div>
 
+        @error('cause')
+            <div class="alert alert-danger">
+                {{ $message }}
+            </div>
+        @enderror
+
         <table class="table">
             <thead>
                 <tr>
@@ -48,7 +54,8 @@
                                     <button type="button" class="btn btn-danger open-modal-btn" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal" data-id="{{ $item->id }}">Отменить</button>
                                 @else
-                                    <p class="m-0 {{ $item->order_status_id === 2 ? 'text-success' : 'text-danger' }}">{{ $item->status->name }}</p>
+                                    <p class="m-0 {{ $item->order_status_id === 2 ? 'text-success' : 'text-danger' }}">
+                                        {{ $item->status->name }}</p>
                                 @endif
                             </td>
                         </tr>
@@ -78,7 +85,7 @@
                                     <input type="hidden" name="id" id="modal-product-id" value="0">
                                     <input type="hidden" name="status" value="3">
                                     <label for="message-text" class="col-form-label">Сообщение:</label>
-                                    <textarea name="cause" class="form-control" id="message-text" required></textarea>
+                                    <textarea name="cause" class="form-control" id="message-text"></textarea>
                                 </div>
                             </form>
                         </div>
