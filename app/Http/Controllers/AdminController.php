@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Http\Requests\CancelOrderRequest;
+use App\Services\AdminService;
 
 class AdminController extends Controller
 {
+    private AdminService $adminService;
+
+    public function __construct()
+    {
+        $this->adminService = $adminService;
+    }
+
     public function index()
     {
         return view('admin.index');

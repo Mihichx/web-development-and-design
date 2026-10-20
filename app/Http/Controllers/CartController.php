@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use Illuminate\Support\Facades\DB;
+use App\Services\CartService;
 
 class CartController extends Controller
 {
+    private CartService $cartService;
+
+    public function __construct(CartService $cartService) {
+        $this->cartService = $cartService;
+    }
+
     public function index()
     {
-        $cartProducts = Cart::where('user_id', auth()->id())->with('product')->get();
-        $count = $cartProducts->sum(function ($cartProduct) {
-            return $cartProduct->quantity ?? 0;
-        });
-        $sum = $cartProducts->sum(function ($cartProduct) {
-            return $cartProduct->product->price * $cartProduct->quantity ?? 0;
-        });
+        ['cartProducts' => $cartProducts, 'count' => $count, 'sum' => $sum] = $this->cartService->getProductCart();
 
         return view('cart', compact('cartProducts', 'count', 'sum'));
     }
@@ -27,16 +27,7 @@ class CartController extends Controller
         }
 
         try {
-            DB::transaction(function () {
-                $cartItems = Cart::where('user_id', auth()->id())->with('product')->lazy();
-
-                foreach ($cartItems as $cartProduct) {
-                    if ($cartProduct->product) {
-                        $cartProduct->product->increment('quantity', $cartProduct->quantity);
-                    }
-                    $cartProduct->delete();
-                }
-            });
+            $this->cartService->deleteAllCartProduct();
 
             return redirect()->route('cart.index')->with('success', 'Корзина очищена');
         } catch (\Exception $e) {
