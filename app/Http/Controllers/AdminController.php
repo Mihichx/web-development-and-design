@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Http\Requests\CancelOrderRequest;
 use App\Services\AdminService;
+use App\Http\Requests\AdminOrderRequest;
+use App\Models\Category;
 
 class AdminController extends Controller
 {
@@ -24,31 +26,25 @@ class AdminController extends Controller
     /**
      * Заказы
      */
-    public function ordersIndex()
+    public function ordersIndex(AdminOrderRequest $request)
     {
-        $orders = Order::select('id', 'user_id', 'order_status_id', 'created_at')->with('user', 'status')->get();
+        $data = $request->validated();
+        $sort = $data['sort'] ?? null;
+
+        $orders = $this->adminService->getOrdersAdmin($sort);
 
         return view('admin.orders.index', compact('orders'));
     }
 
-    public function ordersUpdate(CancelOrderRequest $request, int $id)
+    public function ordersUpdate(CancelOrderRequest $request)
     {
         $data = $request->validated();
+        $id = $data['id'];
         $newStatusId = $data['status'];
-
-        $status = OrderStatus::find($newStatusId);
-        if (!$status) {
-            return redirect()->route('admin.orders.index')->with('error', 'Недопустимый статус заказа');
-        }
-
-        $order = Order::find($id);
-        if (!$order) {
-            return redirect()->route('admin.orders.index')->with('error', 'Заказ не найден');
-        }
 
         // TODO: Нужна ещё логика возврата товара при отмене
 
-        $order->update(['order_status_id' => $newStatusId, 'reason_for_cancellation' => $data['cause'] ?? null]);
+        Order::find($id)->update(['order_status_id' => $newStatusId, 'reason_for_cancellation' => $data['cause'] ?? null]);
 
         return redirect()->route('admin.orders.index')->with('success', 'Статус заказа успешно обновлен');
     }
@@ -81,7 +77,9 @@ class AdminController extends Controller
      */
     public function categoriesIndex()
     {
-        return view('admin.categories.index');
+        $categories = Category::all();
+
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function categoriesStore()
