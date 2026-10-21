@@ -7,11 +7,11 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-4 mb-4">
                 <form method="GET">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Сортировать</option>
-                        <option value="1">Новые</option>
-                        <option value="2">Подтвержденные</option>
-                        <option value="3">Отмененные</option>
+                    <select class="form-select" aria-label="Default select example" name="sort" onchange="this.form.submit()">
+                        <option value="0" selected>Сортировать</option>
+                        <option value="1" {{ request('sort') == 1 ? 'selected' : '' }}>Новые</option>
+                        <option value="2" {{ request('sort') == 2 ? 'selected' : '' }}>Подтвержденные</option>
+                        <option value="3" {{ request('sort') == 3 ? 'selected' : '' }}>Отмененные</option>
                     </select>
                 </form>
             </div>
@@ -22,6 +22,12 @@
                 {{ $message }}
             </div>
         @enderror
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <table class="table">
             <thead>

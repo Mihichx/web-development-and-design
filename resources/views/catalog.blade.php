@@ -16,7 +16,7 @@
                 <div class="col-md-4 mb-4">
                     <select class="form-select" aria-label="Default select example" name="sort_price"
                         onchange="this.form.submit()">
-                        <option value="0">Сортировать по цене</option>
+                        <option value="0" selected>Сортировать по цене</option>
                         <option value="1" {{ request('sort_price') == 1 ? 'selected' : '' }}>По возрастанию</option>
                         <option value="2" {{ request('sort_price') == 2 ? 'selected' : '' }}>По убыванию</option>
                     </select>
