@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\Category;
+use App\Models\Product;
 
 class AdminService
 {
@@ -25,5 +26,15 @@ class AdminService
 
     public function deleteCategory(int $categoryId) {
         Category::findOrFail($categoryId)->delete();
+    }
+
+    public function getProductAdmin() {
+        $products = Product::with('category')->get();
+
+        return $products;
+    }
+
+    public function deleteProduct(int $productId) {
+        Product::findOrFail($productId)->delete();
     }
 }

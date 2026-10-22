@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Admin\CancelOrderRequest;
 use App\Http\Requests\Admin\DestroyCategoryRequest;
+use App\Http\Requests\Admin\DestroyProductRequest;
 use App\Http\Requests\Admin\SortOrderRequest;
 use App\Http\Requests\Admin\StoreCategoryRequest;
 use App\Models\Order;
@@ -55,7 +56,19 @@ class AdminController extends Controller
      */
     public function productsIndex()
     {
-        return view('admin.products.index');
+        $products = $this->adminService->getProductAdmin();
+
+        return view('admin.products.index', compact('products'));
+    }
+
+    public function productsCreate()
+    {
+        return view('admin.products.create');
+    }
+
+    public function productsEdit()
+    {
+        return view('admin.products.edit');
     }
 
     public function productsStore()
@@ -68,8 +81,13 @@ class AdminController extends Controller
         return redirect()->route('admin.products.index');
     }
 
-    public function productsDestroy()
+    public function productsDestroy(DestroyProductRequest $request)
     {
+        $data = $request->validated();
+        $productId = $data['id'];
+
+        $this->adminService->deleteProduct($productId);
+
         return redirect()->route('admin.products.index');
     }
 
