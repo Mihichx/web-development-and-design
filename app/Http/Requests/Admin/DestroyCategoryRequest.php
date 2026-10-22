@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminOrderRequest extends FormRequest
+class DestroyCategoryRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,7 +14,7 @@ class AdminOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sort' => 'nullable|integer',
+            'id' => 'required|integer|exists:categories,id',
         ];
     }
 }

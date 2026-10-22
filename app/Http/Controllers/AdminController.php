@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\CancelOrderRequest;
+use App\Http\Requests\Admin\DestroyCategoryRequest;
+use App\Http\Requests\Admin\SortOrderRequest;
+use App\Http\Requests\Admin\StoreCategoryRequest;
 use App\Models\Order;
-use App\Models\OrderStatus;
-use App\Http\Requests\CancelOrderRequest;
 use App\Services\AdminService;
-use App\Http\Requests\AdminOrderRequest;
 use App\Models\Category;
 
 class AdminController extends Controller
@@ -26,7 +27,7 @@ class AdminController extends Controller
     /**
      * Заказы
      */
-    public function ordersIndex(AdminOrderRequest $request)
+    public function ordersIndex(SortOrderRequest $request)
     {
         $data = $request->validated();
         $sort = $data['sort'] ?? null;
@@ -82,13 +83,24 @@ class AdminController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
-    public function categoriesStore()
+
+    public function categoriesStore(StoreCategoryRequest $request)
     {
-        return redirect()->route('admin.categories.index');
+        $data = $request->validated();
+        $categoryName = $data['name'];
+
+        $this->adminService->storeCategory($categoryName);
+
+        return redirect()->route('admin.categories.index')->with('success', 'Категория создана');
     }
 
-    public function categoriesDestroy()
+    public function categoriesDestroy(DestroyCategoryRequest $request)
     {
-        return redirect()->route('admin.categories.index');
+        $data = $request->validated();
+        $categoryId = $data['id'];
+
+        $this->adminService->deleteCategory($categoryId);
+
+        return redirect()->route('admin.categories.index')->with('success', 'Категория удалена');
     }
 }
