@@ -9,12 +9,9 @@ class Info extends Model
 {
     use HasFactory;
 
-   protected $primaryKey = 'id';
-
    public $timestamps = false;
 
    protected $fillable = [
-        'id',
         'name',
         'value',
     ];

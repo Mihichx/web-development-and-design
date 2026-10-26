@@ -2964,8 +2964,15 @@ function withinMaxClamp(min, value, max) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
 
-
-// TODO: Сделать скрипт для фильтров в каталоге, что бы js в поисковую строку добавлял параметр фильтрации
+document.addEventListener("DOMContentLoaded", function () {
+  var buttons = document.querySelectorAll(".open-modal-btn");
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var productId = this.getAttribute("data-id");
+      document.getElementById("modal-product-id").value = productId;
+    });
+  });
+});
 
 /***/ }),
 

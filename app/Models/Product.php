@@ -9,16 +9,21 @@ class Product extends Model
 {
     use HasFactory;
 
-   protected $primaryKey = 'id';
-
-   public $timestamps = false;
-
-   protected $fillable = [
-        'id',
+    protected $fillable = [
         'img',
         'name',
+        'small_description',
         'description',
-        'yer_release',
+        'model',
+        'country',
+        'release_at',
         'prise',
+        'category_id',
+        'quantity',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

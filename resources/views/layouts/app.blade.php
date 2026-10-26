@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- ICON -->
+    <link rel="icon" type="image/png" href="{{ asset('img/icons-scanner-100.png') }}">
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -17,7 +20,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand"> Copy Star</a>
+                <a href="/" class="navbar-brand"> Copy Star</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -28,27 +31,28 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('about') ? 'active' : '' }}" href="{{ route('about') }}">О
+                            <a class="nav-link {{ Route::is('about.index') ? 'active' : '' }}" href="{{ route('about.index') }}">О
                                 нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('catalog') ? 'active' : '' }}"
-                                href="{{ route('products') }}">Каталог</a>
+                            <a class="nav-link {{ Route::is('catalog.index') ? 'active' : '' }}"
+                                href="{{ route('catalog.index') }}">Каталог</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('find') ? 'active' : '' }}" href="{{ route('find') }}">Где
+                            <a class="nav-link {{ Route::is('find.index') ? 'active' : '' }}" href="{{ route('find.index') }}">Где
                                 мы</a>
                         </li>
-                        {{-- @auth
+                        @auth
                             <li class="nav-item">
-                                <a class="nav-link {{ Route::is('cart') ? 'active' : '' }}"
-                                    href="{{ route('cart') }}">Корзина</a>
+                                <a class="nav-link {{ Route::is('cart.index') ? 'active' : '' }}"
+                                    href="{{ route('cart.index') }}">Корзина</a>
                             </li>
-                        @endauth --}}
-                        <li class="nav-item">
-                            <a class="nav-link {{ Route::is('cart') ? 'active' : '' }}"
-                                href="{{ route('cart') }}">Корзина</a>
-                        </li>
+                            @if (auth()->user()->is_admin)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>
+                                </li>
+                            @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -70,7 +74,7 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->login }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
