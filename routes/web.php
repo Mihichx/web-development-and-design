@@ -27,7 +27,7 @@ Route::get('/find', [FindController::class, 'index'])->name('find.index');
 Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CatalogController::class, 'store'])->name('cart.store');
-    Route::put('/cart/{id}', [CatalogController::class, 'update'])->name('cart.update'); // TODO: Изменить вид запроса cart и поменять на patch
+    Route::patch('/cart/{id}', [CatalogController::class, 'update'])->name('cart.update');
     Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 });
 

@@ -41,27 +41,26 @@
             </thead>
             <tbody>
                 @if ($orders->isNotEmpty())
-                    @foreach ($orders as $item)
+                    @foreach ($orders as $order)
                         <tr>
-                            <th scope="row">{{ $item->id }}</th>
-                            <td>{{ $item->user->surname }} {{ $item->user->name }} {{ $item->user->patronymic }}</td>
-                            <td>0</td>
-                            <td>{{ $item->created_at }}</td>
+                            <th scope="row">{{ $order->id }}</th>
+                            <td>{{ $order->user->surname }} {{ $order->user->name }} {{ $order->user->patronymic }}</td>
+                            <td>0</td> {{-- кол-во --}}
+                            <td>{{ $order->created_at }}</td>
                             <td class="d-flex flex-row">
-                                @if ($item->order_status_id === 1)
-                                    <form method="POST" action="{{ route('admin.orders.update', $item->id) }}">
+                                @if ($order->order_status_id === 1)
+                                    <form method="POST" action="{{ route('admin.orders.update', $order->id) }}">
                                         @csrf
                                         @method('PUT')
-
-                                        <input type="hidden" name="id" value="{{ $item->id }}">
+                                        <input type="hidden" name="id" value="{{ $order->id }}">
                                         <input type="hidden" name="status" value="2">
                                         <button class="btn btn-success me-1">Подтвердить</button>
                                     </form>
                                     <button type="button" class="btn btn-danger open-modal-btn" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" data-id="{{ $item->id }}">Отменить</button>
+                                        data-bs-target="#exampleModal" data-id="{{ $order->id }}">Отменить</button>
                                 @else
-                                    <p class="m-0 {{ $item->order_status_id === 2 ? 'text-success' : 'text-danger' }}">
-                                        {{ $item->status->name }}</p>
+                                    <p class="m-0 {{ $order->order_status_id === 2 ? 'text-success' : 'text-danger' }}">
+                                        {{ $order->status->name }}</p>
                                 @endif
                             </td>
                         </tr>
@@ -83,7 +82,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form method="POST" action="{{ route('admin.orders.update', $item->id) }}" id="accept">
+                            <form method="POST" action="{{ route('admin.orders.update', $order->id) }}" id="accept">
                                 @csrf
                                 @method('PUT')
 

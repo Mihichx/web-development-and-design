@@ -5,10 +5,14 @@ namespace App\Services;
 use App\Models\Order;
 use App\Models\Category;
 use App\Models\Product;
+use App\Repositories\AdminRepositoriesInterface;
 
 class AdminService
 {
-    public function getOrdersAdmin(?int $sort) {
+    public function __construct(protected AdminRepositoriesInterface $adminRepository) {}
+
+    public function getOrdersAdmin(?int $sort)
+    {
         $query = Order::select('id', 'user_id', 'order_status_id', 'created_at');
 
         if ($sort) {
@@ -20,21 +24,25 @@ class AdminService
         return $orders;
     }
 
-    public function storeCategory(string $categoryName) {
+    public function storeCategory(string $categoryName)
+    {
         Category::create(['name' => $categoryName]);
     }
 
-    public function deleteCategory(int $categoryId) {
+    public function deleteCategory(int $categoryId)
+    {
         Category::findOrFail($categoryId)->delete();
     }
 
-    public function getProductAdmin() {
+    public function getProductAdmin()
+    {
         $products = Product::with('category')->get();
 
         return $products;
     }
 
-    public function deleteProduct(int $productId) {
+    public function deleteProduct(int $productId)
+    {
         Product::findOrFail($productId)->delete();
     }
 }
