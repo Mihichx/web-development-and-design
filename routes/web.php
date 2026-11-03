@@ -47,7 +47,7 @@ Route::middleware(['admin'])->group(function () {
 
         Route::get('/products/{product}/edit', [AdminController::class, 'productsEdit'])->name('products.edit');
 
-        Route::patch('/products/{product}', [AdminController::class, 'productsUpdate'])->name('products.update');
+        Route::put('/products/{product}', [AdminController::class, 'productsUpdate'])->name('products.update');
         Route::delete('/products/{product}', [AdminController::class, 'productsDestroy'])->name('products.destroy');
 
         // Категории

@@ -34,11 +34,28 @@ class AdminService
         Category::findOrFail($categoryId)->delete();
     }
 
-    public function getProductAdmin()
+    public function getProductsAdmin()
     {
-        $products = Product::with('category')->get();
+        $products = $this->adminRepository->getProducts();
 
         return $products;
+    }
+
+    public function getProductAdmin(int $id)
+    {
+        $product = $this->adminRepository->getProductsId($id);
+
+        return $product;
+    }
+
+    public function updateProductAdmin(int $id, array $data)
+    {
+        Product::findOrFail($id)->update($data);
+    }
+
+    public function createProductAdmin(array $data)
+    {
+        Product::create($data);
     }
 
     public function deleteProduct(int $productId)
