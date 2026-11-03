@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProductRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -26,7 +26,7 @@ class UpdateProductRequest extends FormRequest
             'quantity'          => 'required|integer|min:0', // Только целое число, от 0 и выше
         ];
     }
-   
+
     public function messages(): array
     {
         return [

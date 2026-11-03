@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\DestroyCategoryRequest;
 use App\Http\Requests\Admin\DestroyProductRequest;
 use App\Http\Requests\Admin\SortOrderRequest;
 use App\Http\Requests\Admin\StoreCategoryRequest;
+use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Order;
 use App\Services\AdminService;
 use App\Models\Category;
@@ -56,28 +57,41 @@ class AdminController extends Controller
      */
     public function productsIndex()
     {
-        $products = $this->adminService->getProductAdmin();
+        $products = $this->adminService->getProductsAdmin();
 
         return view('admin.products.index', compact('products'));
     }
 
     public function productsCreate()
     {
-        return view('admin.products.create');
+        $categories = Category::all();
+
+        return view('admin.products.create', compact('categories'));
     }
 
-    public function productsEdit()
+    public function productsEdit(int $id)
     {
-        return view('admin.products.edit');
+        $product = $this->adminService->getProductAdmin($id);
+        $categories = Category::all();
+
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    public function productsStore()
+    public function productsStore(ProductRequest $request)
     {
+        $data = $request->validated();
+
+        $this->adminService->createProductAdmin($data);
+
         return redirect()->route('admin.products.index');
     }
 
-    public function productsUpdate()
+    public function productsUpdate(ProductRequest $request, int $id)
     {
+        $data = $request->validated();
+
+        $this->adminService->updateProductAdmin($id, $data);
+
         return redirect()->route('admin.products.index');
     }
 

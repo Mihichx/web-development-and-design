@@ -11,4 +11,9 @@ class AdminRepositories implements AdminRepositoriesInterface
     {
         return Product::with('category')->get();
     }
+
+    public function getProductsId(int $id): Product
+    {
+        return Product::with('category')->findOrFail($id);
+    }
 }
