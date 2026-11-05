@@ -14,12 +14,7 @@ use App\Models\Category;
 
 class AdminController extends Controller
 {
-    private AdminService $adminService;
-
-    public function __construct(AdminService $adminService)
-    {
-        $this->adminService = $adminService;
-    }
+    public function __construct(protected AdminService $adminService) {}
 
     public function index()
     {

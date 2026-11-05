@@ -7,11 +7,7 @@ use App\Services\CartService;
 
 class CartController extends Controller
 {
-    private CartService $cartService;
-
-    public function __construct(CartService $cartService) {
-        $this->cartService = $cartService;
-    }
+    public function __construct(protected CartService $cartService) {}
 
     public function index()
     {
