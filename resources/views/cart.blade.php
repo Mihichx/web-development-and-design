@@ -35,9 +35,8 @@
             </div>
             <div class="col-md-3 mb-4">
                 @if (!$cartProducts->isEmpty())
-                    <form method="POST">
+                    <form method="POST" action="{{ route('orders.store') }}">
                         @csrf
-                        <input type="hidden" name="order" value="1">
                         <button class="btn btn-success w-100">Оформить</button>
                     </form>
                 @else
