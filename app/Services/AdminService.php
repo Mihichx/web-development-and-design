@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Repositories\AdminRepositoriesInterface;
+use App\Models\OrderProduct;
 
 class AdminService
 {
@@ -70,5 +71,18 @@ class AdminService
     public function deleteProduct(int $productId)
     {
         Product::findOrFail($productId)->delete();
+    }
+
+    public function updateOrderAdmin(int $id, int $newStatusId, string $cause): void
+    {
+        if ($newStatusId == 3) {
+            $productsOrder = OrderProduct::where('order_id', $id)->get();
+
+            foreach ($productsOrder as $productOrder) {
+                Product::where('id', $productOrder->product_id)->increment('quantity', $productOrder->quantity);
+            }
+        }
+
+        Order::find($id)->update(['order_status_id' => $newStatusId, 'reason_for_cancellation' => $cause ?? null]);
     }
 }

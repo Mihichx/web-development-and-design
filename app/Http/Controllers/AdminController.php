@@ -8,11 +8,8 @@ use App\Http\Requests\Admin\DestroyProductRequest;
 use App\Http\Requests\Admin\SortOrderRequest;
 use App\Http\Requests\Admin\StoreCategoryRequest;
 use App\Http\Requests\Admin\ProductRequest;
-use App\Models\Order;
 use App\Services\AdminService;
 use App\Models\Category;
-use App\Models\OrderProduct;
-use App\Models\Product;
 
 class AdminController extends Controller
 {
@@ -41,16 +38,9 @@ class AdminController extends Controller
         $data = $request->validated();
         $id = $data['id'];
         $newStatusId = $data['status'];
-        
-        if ($newStatusId == 3) {
-            $productsOrder = OrderProduct::where('order_id', $id)->get();
+        $cause = $data['cause'];
 
-            foreach ($productsOrder as $productOrder) {
-                Product::where('id', $productOrder->product_id)->increment('quantity', $productOrder->quantity);
-            }
-        }
-
-        Order::find($id)->update(['order_status_id' => $newStatusId, 'reason_for_cancellation' => $data['cause'] ?? null]);
+        $this->adminService->updateOrderAdmin($id, $newStatusId, $cause);
 
         return redirect()->route('admin.orders.index')->with('success', 'Статус заказа успешно обновлен');
     }
