@@ -45,7 +45,14 @@
                         <tr>
                             <th scope="row">{{ $order->id }}</th>
                             <td>{{ $order->user->surname }} {{ $order->user->name }} {{ $order->user->patronymic }}</td>
-                            <td>0</td> {{-- кол-во --}}
+                            @php
+                                $quantity = 0;
+
+                                foreach ($order->products as $product) {
+                                    $quantity++;
+                                }
+                            @endphp
+                            <td>{{ $quantity }}</td>
                             <td>{{ $order->created_at }}</td>
                             <td class="d-flex flex-row">
                                 @if ($order->order_status_id === 1)

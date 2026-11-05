@@ -19,7 +19,7 @@ class AdminService
             $query->where('order_status_id', $sort);
         }
 
-        $orders = $query->with('user', 'status')->get();
+        $orders = $query->with('user', 'status', 'products')->get();
 
         return $orders;
     }
