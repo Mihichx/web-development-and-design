@@ -23,7 +23,7 @@ class CartController extends Controller
         }
 
         try {
-            $this->cartService->deleteAllCartProduct();
+            $this->cartService->deleteAllCartProduct(True);
 
             return redirect()->route('cart.index')->with('success', 'Корзина очищена');
         } catch (\Exception $e) {

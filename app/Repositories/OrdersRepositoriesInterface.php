@@ -8,7 +8,7 @@ interface OrdersRepositoriesInterface
 {
     public function getOrders(): Collection;
 
-    public function postOrderItems();
+    public function postOrderItems(int $id, int $orderId);
 
-    public function postOrder();
+    public function postOrder(int $id);
 }

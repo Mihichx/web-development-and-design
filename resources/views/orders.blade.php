@@ -8,7 +8,10 @@
             @foreach ($orders as $order)
                 <div class="card mb-3 p-3">
                     <h3>Заказ №{{ $order->id }}</h3>
-                    <p>Статус: {{ $order->order_status_id }}</p>
+                    <div class="d-flex align-items-center">
+                        <p>Статус:&nbsp</p>
+                        <p class="{{ ($order->status->id === 3) ? 'text-danger' : 'text-success' }}">{{ $order->status->name }}</p>
+                    </div>
 
                     <h5>Товары в заказе:</h5>
                     <ul>

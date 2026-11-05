@@ -14,4 +14,11 @@ class OrdersController extends Controller
 
         return view('orders', compact('orders'));
     }
+
+    public function store()
+    {
+        $this->ordersService->createOrder();
+
+        return redirect()->route('orders.index');
+    }
 }
