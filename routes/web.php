@@ -7,6 +7,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\FindController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart', [CatalogController::class, 'store'])->name('cart.store');
     Route::patch('/cart/{id}', [CatalogController::class, 'update'])->name('cart.update');
     Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
+
+    Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
 });
 
 Route::middleware(['admin'])->group(function () {
