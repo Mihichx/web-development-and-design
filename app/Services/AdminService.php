@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use App\Models\Product;
 use App\Repositories\AdminRepositoriesInterface;
 
@@ -13,7 +14,15 @@ class AdminService
 
     public function getOrdersAdmin(?int $sort)
     {
-        $query = Order::select('id', 'user_id', 'order_status_id', 'created_at');
+        $query = Order::join('order_products', 'orders.id', '=', 'order_products.order_id')
+            ->select(
+                'orders.id',
+                'orders.user_id',
+                'orders.order_status_id',
+                'orders.created_at',
+                DB::raw('SUM(order_products.quantity) as products_count')
+            )
+            ->groupBy('orders.id');
 
         if ($sort) {
             $query->where('order_status_id', $sort);
