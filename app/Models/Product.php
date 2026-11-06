@@ -17,7 +17,7 @@ class Product extends Model
         'model',
         'country',
         'release_at',
-        'prise',
+        'price',
         'category_id',
         'quantity',
     ];

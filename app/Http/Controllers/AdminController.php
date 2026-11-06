@@ -7,18 +7,13 @@ use App\Http\Requests\Admin\DestroyCategoryRequest;
 use App\Http\Requests\Admin\DestroyProductRequest;
 use App\Http\Requests\Admin\SortOrderRequest;
 use App\Http\Requests\Admin\StoreCategoryRequest;
-use App\Models\Order;
+use App\Http\Requests\Admin\ProductRequest;
 use App\Services\AdminService;
 use App\Models\Category;
 
 class AdminController extends Controller
 {
-    private AdminService $adminService;
-
-    public function __construct(AdminService $adminService)
-    {
-        $this->adminService = $adminService;
-    }
+    public function __construct(protected AdminService $adminService) {}
 
     public function index()
     {
@@ -43,10 +38,9 @@ class AdminController extends Controller
         $data = $request->validated();
         $id = $data['id'];
         $newStatusId = $data['status'];
+        $cause = $data['cause'];
 
-        // TODO: Нужна ещё логика возврата товара при отмене
-
-        Order::find($id)->update(['order_status_id' => $newStatusId, 'reason_for_cancellation' => $data['cause'] ?? null]);
+        $this->adminService->updateOrderAdmin($id, $newStatusId, $cause);
 
         return redirect()->route('admin.orders.index')->with('success', 'Статус заказа успешно обновлен');
     }
@@ -56,28 +50,41 @@ class AdminController extends Controller
      */
     public function productsIndex()
     {
-        $products = $this->adminService->getProductAdmin();
+        $products = $this->adminService->getProductsAdmin();
 
         return view('admin.products.index', compact('products'));
     }
 
     public function productsCreate()
     {
-        return view('admin.products.create');
+        $categories = Category::all();
+
+        return view('admin.products.create', compact('categories'));
     }
 
-    public function productsEdit()
+    public function productsEdit(int $id)
     {
-        return view('admin.products.edit');
+        $product = $this->adminService->getProductAdmin($id);
+        $categories = Category::all();
+
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    public function productsStore()
+    public function productsStore(ProductRequest $request)
     {
+        $data = $request->validated();
+
+        $this->adminService->createProductAdmin($data);
+
         return redirect()->route('admin.products.index');
     }
 
-    public function productsUpdate()
+    public function productsUpdate(ProductRequest $request, int $id)
     {
+        $data = $request->validated();
+
+        $this->adminService->updateProductAdmin($id, $data);
+
         return redirect()->route('admin.products.index');
     }
 

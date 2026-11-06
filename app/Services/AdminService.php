@@ -4,37 +4,85 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use App\Models\Product;
+use App\Repositories\AdminRepositoriesInterface;
+use App\Models\OrderProduct;
 
 class AdminService
 {
-    public function getOrdersAdmin(?int $sort) {
-        $query = Order::select('id', 'user_id', 'order_status_id', 'created_at');
+    public function __construct(protected AdminRepositoriesInterface $adminRepository) {}
+
+    public function getOrdersAdmin(?int $sort)
+    {
+        $query = Order::join('order_products', 'orders.id', '=', 'order_products.order_id')
+            ->select(
+                'orders.id',
+                'orders.user_id',
+                'orders.order_status_id',
+                'orders.created_at',
+                DB::raw('SUM(order_products.quantity) as products_count')
+            )
+            ->groupBy('orders.id');
 
         if ($sort) {
             $query->where('order_status_id', $sort);
         }
 
-        $orders = $query->with('user', 'status')->get();
+        $orders = $query->with('user', 'status', 'products')->get();
 
         return $orders;
     }
 
-    public function storeCategory(string $categoryName) {
+    public function storeCategory(string $categoryName)
+    {
         Category::create(['name' => $categoryName]);
     }
 
-    public function deleteCategory(int $categoryId) {
+    public function deleteCategory(int $categoryId)
+    {
         Category::findOrFail($categoryId)->delete();
     }
 
-    public function getProductAdmin() {
-        $products = Product::with('category')->get();
+    public function getProductsAdmin()
+    {
+        $products = $this->adminRepository->getProducts();
 
         return $products;
     }
 
-    public function deleteProduct(int $productId) {
+    public function getProductAdmin(int $id)
+    {
+        $product = $this->adminRepository->getProductsId($id);
+
+        return $product;
+    }
+
+    public function updateProductAdmin(int $id, array $data)
+    {
+        Product::findOrFail($id)->update($data);
+    }
+
+    public function createProductAdmin(array $data)
+    {
+        Product::create($data);
+    }
+
+    public function deleteProduct(int $productId)
+    {
         Product::findOrFail($productId)->delete();
+    }
+
+    public function updateOrderAdmin(int $id, int $newStatusId, string $cause): void
+    {
+        if ($newStatusId == 3) {
+            $productsOrder = OrderProduct::where('order_id', $id)->get();
+
+            foreach ($productsOrder as $productOrder) {
+                Product::where('id', $productOrder->product_id)->increment('quantity', $productOrder->quantity);
+            }
+        }
+
+        Order::find($id)->update(['order_status_id' => $newStatusId, 'reason_for_cancellation' => $cause ?? null]);
     }
 }

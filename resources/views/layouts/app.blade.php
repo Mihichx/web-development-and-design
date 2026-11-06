@@ -47,6 +47,10 @@
                                 <a class="nav-link {{ Route::is('cart.index') ? 'active' : '' }}"
                                     href="{{ route('cart.index') }}">Корзина</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('orders.index') ? 'active' : '' }}"
+                                    href="{{ route('orders.index') }}">Заказы</a>
+                            </li>
                             @if (auth()->user()->is_admin)
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>

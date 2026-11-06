@@ -9,12 +9,7 @@ use App\Http\Requests\CatalogUpdateRequest;
 
 class CatalogController extends Controller
 {
-    private CatalogService $catalogService;
-
-    public function __construct(CatalogService $catalogService)
-    {
-        $this->catalogService = $catalogService;
-    }
+    public function __construct(protected CatalogService $catalogService) {}
 
     public function index(CatalogSortRequest $request)
     {
