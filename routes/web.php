@@ -7,6 +7,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\FindController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,11 @@ Route::get('/find', [FindController::class, 'index'])->name('find.index');
 Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CatalogController::class, 'store'])->name('cart.store');
-    Route::put('/cart/{id}', [CatalogController::class, 'update'])->name('cart.update'); // TODO: Изменить вид запроса cart и поменять на patch
+    Route::patch('/cart/{id}', [CatalogController::class, 'update'])->name('cart.update');
     Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
+
+    Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
+    Route::post('/orders', [OrdersController::class, 'store'])->name('orders.store');
 });
 
 Route::middleware(['admin'])->group(function () {
@@ -47,7 +51,7 @@ Route::middleware(['admin'])->group(function () {
 
         Route::get('/products/{product}/edit', [AdminController::class, 'productsEdit'])->name('products.edit');
 
-        Route::patch('/products/{product}', [AdminController::class, 'productsUpdate'])->name('products.update');
+        Route::put('/products/{product}', [AdminController::class, 'productsUpdate'])->name('products.update');
         Route::delete('/products/{product}', [AdminController::class, 'productsDestroy'])->name('products.destroy');
 
         // Категории

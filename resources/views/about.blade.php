@@ -9,24 +9,24 @@
 
     <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
-            @foreach ($products as $quantity => $item)
+            @foreach ($products as $quantity => $product)
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $quantity }}"
                     class="{{ $quantity == 0 ? 'active' : '' }}" aria-current="true"
                     aria-label="Slide {{ $quantity + 1 }}"></button>
             @endforeach
         </div>
         <div class="carousel-inner">
-            @foreach ($products as $quantity => $item)
+            @foreach ($products as $quantity => $product)
                 <div class="carousel-item {{ $quantity == 0 ? 'active' : '' }}">
                     <picture>
-                        <source srcset="{{ asset('img/' . $item->img . '.avif') }}" type="image/avif">
-                        <source srcset="{{ asset('img/' . $item->img . '.webp') }}" type="image/webp">
-                        <source srcset="{{ asset('img/' . $item->img . '.png') }}" type="image/png">
-                        <img src="{{ asset('img/' . $item->img . '.jpg') }}" class="d-block m-auto object-fit-cover"
-                            style="height: 25rem;" alt="{{ $item->name }}">
+                        <source srcset="{{ asset('img/' . $product->img . '.avif') }}" type="image/avif">
+                        <source srcset="{{ asset('img/' . $product->img . '.webp') }}" type="image/webp">
+                        <source srcset="{{ asset('img/' . $product->img . '.png') }}" type="image/png">
+                        <img src="{{ asset('img/' . $product->img . '.jpg') }}" class="d-block m-auto object-fit-cover"
+                            style="height: 25rem;" alt="{{ $product->name }}">
                     </picture>
                     <div class="carousel-caption d-none d-md-block custom-caption">
-                        <h5>{{ $item->name }}</h5>
+                        <h5>{{ $product->name }}</h5>
                     </div>
                 </div>
             @endforeach

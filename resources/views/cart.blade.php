@@ -35,9 +35,8 @@
             </div>
             <div class="col-md-3 mb-4">
                 @if (!$cartProducts->isEmpty())
-                    <form method="POST">
+                    <form method="POST" action="{{ route('orders.store') }}">
                         @csrf
-                        <input type="hidden" name="order" value="1">
                         <button class="btn btn-success w-100">Оформить</button>
                     </form>
                 @else
@@ -54,7 +53,7 @@
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
-        @endif  
+        @endif
 
         <div class="row g-5 d-flex justify-content-center">
             @if ($cartProducts->isNotEmpty())
@@ -85,14 +84,14 @@
                                 <div class="d-flex flex-row m-auto">
                                     <form method="POST" action="{{ route('cart.update', $product->id) }}">
                                         @csrf
-                                        @method('PUT')
+                                        @method('PATCH')
                                         <input type="hidden" name="return_url" value="{{ request()->fullUrl() }}">
                                         <input type="hidden" name="plus" value="1">
                                         <button class="btn btn-secondary me-1">+</button>
                                     </form>
                                     <form method="POST" action="{{ route('cart.update', $product->id) }}">
                                         @csrf
-                                        @method('PUT')
+                                        @method('PATCH')
                                         <input type="hidden" name="return_url" value="{{ request()->fullUrl() }}">
                                         <input type="hidden" name="minus" value="1">
                                         <button class="btn btn-secondary me-1">-</button>

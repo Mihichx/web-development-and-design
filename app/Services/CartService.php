@@ -20,13 +20,13 @@ class CartService
         return ['cartProducts' => $cartProducts, 'count' => $count, 'sum' => $sum];
     }
 
-    public function deleteAllCartProduct()
+    public function deleteAllCartProduct(bool $return)
     {
-        DB::transaction(function () {
+        DB::transaction(function () use ($return) {
             $cartItems = Cart::where('user_id', auth()->id())->with('product')->lazy();
 
             foreach ($cartItems as $cartProduct) {
-                if ($cartProduct->product) {
+                if ($cartProduct->product && $return === True) {
                     $cartProduct->product->increment('quantity', $cartProduct->quantity);
                 }
                 $cartProduct->delete();

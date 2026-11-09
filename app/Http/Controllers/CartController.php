@@ -7,11 +7,7 @@ use App\Services\CartService;
 
 class CartController extends Controller
 {
-    private CartService $cartService;
-
-    public function __construct(CartService $cartService) {
-        $this->cartService = $cartService;
-    }
+    public function __construct(protected CartService $cartService) {}
 
     public function index()
     {
@@ -27,7 +23,7 @@ class CartController extends Controller
         }
 
         try {
-            $this->cartService->deleteAllCartProduct();
+            $this->cartService->deleteAllCartProduct(True);
 
             return redirect()->route('cart.index')->with('success', 'Корзина очищена');
         } catch (\Exception $e) {

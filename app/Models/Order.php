@@ -13,7 +13,6 @@ class Order extends Model
         'user_id',
         'order_status_id',
         'reason_for_cancellation',
-        'arrival_date',
     ];
 
     public function user()
@@ -24,5 +23,10 @@ class Order extends Model
     public function status()
     {
         return $this->belongsTo(OrderStatus::class, 'order_status_id', 'id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(OrderProduct::class);
     }
 }
